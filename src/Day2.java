@@ -11,26 +11,60 @@ public class Day2 {
         int invalid = 0;
         for(String report : fileData) {
             String[] split = report.split(" ");
-            System.out.println(Arrays.toString(split));
-            int first = Integer.parseInt(split[0]);
-            int next = Integer.parseInt(split[1]);
+            ArrayList<Integer> original = new ArrayList<>();
+
+            for (String number : split) {
+                original.add(Integer.parseInt(number));
+            }
+
+            int first = original.getFirst();
+            int next = original.get(1);
             boolean increasing = true;
+            boolean failChange = false;
 
             if (first > next) {
                 increasing = false;
             }
 
-            for (int i = 0; i < split.length - 1; i++) {
-                first = Integer.parseInt(split[i]);
-                next = Integer.parseInt(split[i + 1]);
+            System.out.println("Orignal: " + original);
+            for(int i = 0; i < original.size() - 1; i++) {
+                first = original.get(i);
+                next = original.get(i + 1);
+
                 if (increasing) {
-                    if (first > next || (next - first) > 3) {
+                    if (first > next || (next - first) > 3 || first == next) {
+                        ArrayList<Integer> option1;
+                        option1 = new ArrayList<>(original.subList(0, i));
+                        //add the rest of the list to option 1. Do the same for option 2.
+                        //then check which one works. Whichever does stays
+                        //If none, you could end early with break and add invalid
+                        System.out.println("option 1: " + option1);
+                        original.remove(i);
+                        i--;
+                    }
+                } else {
+                    if (first < next || (first - next) > 3 || first == next) {
+                        original.remove(i);
+                        i--;
+                    }
+                }
+            }
+
+            System.out.println("After cleanup: " + original);
+            for(int i = 0; i < original.size() - 1; i++) {
+                first = original.get(i);
+                next = original.get(i + 1);
+
+                if (increasing) {
+                    if (first > next || (next - first) > 3 || first == next) {
                         invalid++;
+                        System.out.println("invalid: " + original);
                         break;
                     }
                 } else {
-                    if (first < next || (first - next) > 3) {
+                    if (first < next || (first - next) > 3 || first == next) {
                         invalid++;
+                        System.out.println("invalid: " + original);
                         break;
                     }
                 }
