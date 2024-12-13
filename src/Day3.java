@@ -20,7 +20,33 @@ public class Day3 {
 
         Matcher mulFound = Pattern.compile(regex).matcher(data);
 
-        System.out.println(mulFound);
+        while(mulFound.find()) {
+            instructions.add(mulFound.group());
+        }
+
+        int result = 0;
+
+        for (String command : instructions) {
+            result += solveMul(command);
+        }
+
+        System.out.println("Answer is " + result);
+    }
+
+    public static int solveMul(String command) {
+        boolean halfReached = false;
+        String firstHalf = "";
+        String secondHalf = "";
+        for(int i = 4; i < command.length() - 1; i++) {
+            if (command.charAt(i) == ',') {
+                halfReached = true;
+            } else if (!halfReached) {
+                firstHalf += command.charAt(i);
+            } else {
+                secondHalf += command.charAt(i);
+            }
+        }
+        return Integer.parseInt(firstHalf) * Integer.parseInt(secondHalf);
     }
 
     public static ArrayList<String> getFileData(String fileName) {
