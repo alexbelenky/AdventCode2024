@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Day4 {
@@ -24,63 +23,25 @@ public class Day4 {
         }
 
         int result = 0;
-        result += checkXMAS(dataSet);
+
+        for(int row = 0; row < dataSet.length; row++) {
+            for (int col = 0; col < dataSet[0].length; col++) {
+                if (dataSet[row][col].equals("X")) {
+                    if (col < dataSet[0].length - 3 && dataSet[row][col + 1].equals("M") && dataSet[row][col + 2].equals("A") && dataSet[row][col + 3].equals("S")) {
+                        result++;
+                    } else if (row < dataSet.length - 3  && dataSet[row + 1][col].equals("M") && dataSet[row + 2][col].equals("A") && dataSet[row + 3][col].equals("S")) {
+                        result++;
+                    }
+                } else if (dataSet[row][col].equals("S")) {
+                    if (col < dataSet[0].length - 3 && dataSet[row][col + 1].equals("A") && dataSet[row][col + 2].equals("M") && dataSet[row][col + 3].equals("X")) {
+                        result++;
+                    }
+                }
+            }
+        }
+
         System.out.println(result);
-        checkVertical(dataSet);
     }
-
-    public static int checkXMAS (String[][] data) {
-        int result = 0;
-        result += checkHorizontal(data);
-        return result;
-    }
-
-    public static int checkHorizontal (String[][] data) {
-        int found = 0;
-        for(String[] row : data) {
-            String line = "";
-            for (String col : row) {
-                line += col;
-            }
-
-            while(line.contains("XMAS")) {
-                line = line.replaceFirst("XMAS", "");
-                found++;
-            }
-
-            while(line.contains("SAMX")) {
-                line = line.replaceFirst("SAMX", "");
-                found++;
-            }
-        }
-        return found;
-    }
-
-    public static int checkVertical (String[][] data) {
-        int found = 0;
-        String line = "";
-        for(int row = 0; row < data.length; row++) {
-            for (int col = 0; col < data[0].length; col++) {
-                line += data[col][row];
-                System.out.print(data[col][row]);
-
-            }
-            System.out.println();
-        }
-
-        System.out.println("veritcal :");
-            while(line.contains("XMAS")) {
-                line = line.replaceFirst("XMAS", "");
-                found++;
-            }
-
-            while(line.contains("SAMX")) {
-                line = line.replaceFirst("SAMX", "");
-                found++;
-            }
-        return found;
-    }
-
 
     public static ArrayList<String> getFileData(String fileName) {
         ArrayList<String> fileData = new ArrayList<String>();
