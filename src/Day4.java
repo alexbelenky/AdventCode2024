@@ -29,11 +29,27 @@ public class Day4 {
                 if (dataSet[row][col].equals("X")) {
                     if (col < dataSet[0].length - 3 && dataSet[row][col + 1].equals("M") && dataSet[row][col + 2].equals("A") && dataSet[row][col + 3].equals("S")) {
                         result++;
-                    } else if (row < dataSet.length - 3  && dataSet[row + 1][col].equals("M") && dataSet[row + 2][col].equals("A") && dataSet[row + 3][col].equals("S")) {
+                    }
+                    if (row < dataSet.length - 3  && dataSet[row + 1][col].equals("M") && dataSet[row + 2][col].equals("A") && dataSet[row + 3][col].equals("S")) {
+                        result++;
+                    }
+                    if (row < dataSet.length - 3  && col < dataSet[0].length - 3 && dataSet[row + 1][col + 1].equals("M") && dataSet[row + 2][col + 2].equals("A") && dataSet[row + 3][col + 3].equals("S")) {
+                        result++;
+                    }
+                    if (row < dataSet.length - 3  && col > 3 && dataSet[row + 1][col - 1].equals("M") && dataSet[row + 2][col - 2].equals("A") && dataSet[row + 3][col - 3].equals("S")) {
                         result++;
                     }
                 } else if (dataSet[row][col].equals("S")) {
                     if (col < dataSet[0].length - 3 && dataSet[row][col + 1].equals("A") && dataSet[row][col + 2].equals("M") && dataSet[row][col + 3].equals("X")) {
+                        result++;
+                    }
+                    if (row < dataSet.length - 3  && dataSet[row + 1][col].equals("A") && dataSet[row + 2][col].equals("M") && dataSet[row + 3][col].equals("X")) {
+                        result++;
+                    }
+                    if (row < dataSet.length - 3  && col < dataSet[0].length - 3 && dataSet[row + 1][col + 1].equals("A") && dataSet[row + 2][col + 2].equals("M") && dataSet[row + 3][col + 3].equals("X")) {
+                        result++;
+                    }
+                    if (row < dataSet.length - 3  && col > 3 && dataSet[row + 1][col - 1].equals("A") && dataSet[row + 2][col - 2].equals("M") && dataSet[row + 3][col - 3].equals("X")) {
                         result++;
                     }
                 }
